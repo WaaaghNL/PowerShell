@@ -5,7 +5,6 @@
 # Copyright 2023 Ronald van Heugten (WaaaghNL)
 
 # Config
-#$serialNumber = "0101fb92baf0e1b3d538"  # Replace this with the desired serial number
 $serialNumber = "1234567890"  # Replace this with the desired serial number
 $path = "\Windows Keys" # Replace this with the desired storage path
 
