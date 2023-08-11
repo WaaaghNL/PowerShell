@@ -1,5 +1,5 @@
 ## How to use:
-## Place this script in the root of the aquired zip file from SecTec (there shoud be two folders named install and uninstall) and package the application as a intunewin file.
+## Place this script in the root of new app and package the application as a intunewin file.
 ## 
 ## Install command:   powershell.exe -ExecutionPolicy Bypass -file app.ps1 -Mode Install
 ## Uninstall command: powershell.exe -ExecutionPolicy Bypass -file app.ps1 -Mode Uninstall
