@@ -23,5 +23,5 @@ if ($Mode -eq "Install"){
 }
  
 if ($Mode -eq "Uninstall"){
-	## Do Uninstall Things
+    ## Do Uninstall Things
 }
