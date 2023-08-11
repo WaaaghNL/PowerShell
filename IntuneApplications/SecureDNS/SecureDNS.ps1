@@ -6,12 +6,19 @@
 ##
 ## Create the folowing detection rule
 ## Rules format:     Manually configure detection rules
-## Rule ype:         Registry
+## Rule type:         Registry
 ## Keypath:          Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Tanium\Tanium Client\Sensor Data\Tags
 ## Value name:       client
 ## Detection method: String comparison
 ## Operator:         Equals
 ## Value:            Your licence key (You can find this in install/install.bat on the top of the file. The row starts with "set LicenseKey=" copy the values between the quotes)
+
+## If the rule above is reporting false positives use the following detection rule on file level
+## Rules format:     Manually configure detection rules
+## Rule type:        File
+## Path:             C:\Program Files (x86)\Tanium\Tanium Client\
+## File or folder:   TaniumClient.exe
+## Detection method: File or folder exists
 
 Param(
 	[Parameter(Mandatory=$true, HelpMessage="Accepted values: Install, and Uninstall")]
