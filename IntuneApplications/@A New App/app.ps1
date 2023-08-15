@@ -14,7 +14,7 @@
 Param(
 	[Parameter(Mandatory=$true, HelpMessage="Accepted values: Install, and Uninstall")]
 	[ValidateSet("Install", "Uninstall")]
-	[String[]]
+	[String]
 	$Mode
 )
  
