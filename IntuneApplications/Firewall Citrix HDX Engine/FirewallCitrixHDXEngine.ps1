@@ -9,16 +9,12 @@
 ## Rule type:        Registry
 ## Keypath:          Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules
 ## Value name:       Citrix HDX Engine TCP
-## Detection method: String comparison
-## Operator:         Equals
-## Value:            v2.30|Action=Allow|Active=TRUE|Dir=In|Protocol=6|App=C:\program files (x86)\citrix\ica client\wfica32.exe|Name=Citrix HDX Engine|Desc=Citrix HDX Engine|
+## Detection method: Value exists
 
 ## Rule type:        Registry
 ## Keypath:          Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules
 ## Value name:       Citrix HDX Engine UDP
-## Detection method: String comparison
-## Operator:         Equals
-## Value:            v2.30|Action=Allow|Active=TRUE|Dir=In|Protocol=17|App=C:\program files (x86)\citrix\ica client\wfica32.exe|Name=Citrix HDX Engine|Desc=Citrix HDX Engine|
+## Detection method: Value exists
 
 Param(
 	[Parameter(Mandatory=$true, HelpMessage="Accepted values: Install, and Uninstall")]
