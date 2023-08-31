@@ -1,3 +1,7 @@
+## Tips:
+### Run Start-Process with -Wait -NoNewWindow -PassThru https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process?view=powershell-7.3
+##
+##
 ## How to use:
 ## Place this script in the root of new app and package the application as a intunewin file.
 ## 
