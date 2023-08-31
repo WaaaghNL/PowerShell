@@ -15,13 +15,25 @@
 ## File or folder:   App.exe
 ## Detection method: File or folder exists
 
+##
+## Parameters, Sorry you can't create code above this. Blame Microsoft!
+##
 Param(
 	[Parameter(Mandatory=$true, HelpMessage="Accepted values: Install, and Uninstall")]
 	[ValidateSet("Install", "Uninstall")]
-	[String]
-	$Mode
+	[String] $Mode
 )
- 
+
+##
+## Config
+## Place here your config variables
+##
+
+
+##
+## Script
+## Let it run!
+## 
 if ($Mode -eq "Install"){
     ## Do Install Things
 }
@@ -29,3 +41,8 @@ if ($Mode -eq "Install"){
 if ($Mode -eq "Uninstall"){
     ## Do Uninstall Things
 }
+
+##
+## Functions
+## FLove them, Hate them!
+##
