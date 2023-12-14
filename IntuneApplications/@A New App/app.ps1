@@ -5,8 +5,8 @@
 ## How to use:
 ## Place this script in the root of new app and package the application as a intunewin file.
 ## 
-## Install command:   powershell.exe -ExecutionPolicy Bypass -file app.ps1 -Mode Install
-## Uninstall command: powershell.exe -ExecutionPolicy Bypass -file app.ps1 -Mode Uninstall
+## Install command:   powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -file app.ps1 -Mode Install
+## Uninstall command: powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -file app.ps1 -Mode Uninstall
 ##
 ## Create the folowing detection rule
 ## Rules format:     Manually configure detection rules
