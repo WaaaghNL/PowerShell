@@ -3,7 +3,7 @@
 ##
 ##
 ## How to use:
-## 1. Download the version of dotNet that you need from Microsoft https://dotnet.microsoft.com/en-us/download/dotnet
+## 1. Download the version of dotNet runtime that you need from Microsoft https://dotnet.microsoft.com/en-us/download/dotnet
 ## 2. Place the download in the same folder as app.ps1
 ## 3. Edit the name of the downloaded file in the code below
 ## 4. Package the application as a intunewin file.
@@ -33,19 +33,18 @@ Param(
 ## Place here your config variables
 ##
 
-
 ##
 ## Script
 ## Let it run!
 ## 
 if ($Mode -eq "Install"){
     ## Do Install Things
-    dotnet-sdk-x.x.x-win-x64.exe /install /quiet /norestart
+    windowsdesktop-runtime-6.0.27-win-x64.exe /install /quiet /norestart
 }
  
 if ($Mode -eq "Uninstall"){
     ## Do Uninstall Things
-    dotnet-sdk-x.x.x-win-x64.exe /uninstall /quiet /norestart
+    windowsdesktop-runtime-6.0.27-win-x64.exe /uninstall /quiet /norestart
 }
 
 ##
