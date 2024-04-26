@@ -39,10 +39,14 @@ Param(
 ##
 
 
+## Transcript of the app
+Start-Transcript -Path "C:\PS Intune Install Session.log" -Verbose
+
 ##
 ## Script
 ## Let it run!
 ## 
+
 if ($Mode -eq "Install"){
     ## Do Install Things
 }
@@ -53,5 +57,9 @@ if ($Mode -eq "Uninstall"){
 
 ##
 ## Functions
-## FLove them, Hate them!
+## Love them, Hate them!
 ##
+
+
+# Stop the transcript
+Stop-Transcript
