@@ -72,7 +72,7 @@ Write-Host "Je kunt dit script veilig afbreken met CTRL + C" -ForegroundColor Da
 
 # Slapen voor reboot met progressbar
 $tijdInSeconden = $sleepBeforeReboot*60
-for ($i = 1; $i -le $totalTasks; $i++) {
+for ($i = 1; $i -le $tijdInSeconden; $i++) {
     # Update progress bar
     $prcentageCompleet = ($i / $tijdInSeconden) * 100
     $tijdOver = $tijdInSeconden-$i
