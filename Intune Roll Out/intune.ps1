@@ -68,8 +68,21 @@ else
 Write-Host "`r`n"
 Write-Host "We gaan even een dutje doen van $sleepBeforeReboot minuten om intune de kans te geven een aantal zaken gereed te maken." -ForegroundColor Yellow
 Write-Host "Vervolgens gaan we opnieuw opstarten en zou je verwelkomt moeten worden met Welkom bij $TenantNAME." -ForegroundColor Yellow
-Write-Host "Je kunt dit script ook afbreken met CTRL + C" -ForegroundColor DarkRed
-# Sleep before reboot
-start-sleep -s ($sleepBeforeReboot*60)
+Write-Host "Je kunt dit script veilig afbreken met CTRL + C" -ForegroundColor DarkRed
+
+# Slapen voor reboot met progressbar
+$tijdInSeconden = $sleepBeforeReboot*60
+for ($i = 1; $i -le $totalTasks; $i++) {
+    # Update progress bar
+    $prcentageCompleet = ($i / $tijdInSeconden) * 100
+    $tijdOver = $tijdInSeconden-$i
+    Write-Progress -Activity "Wachten op reboot" -Status "Nog $tijdOver seconden van $sleepBeforeReboot minuten" -PercentComplete $prcentageCompleet
+
+    Start-Sleep -s 1
+}
+
+# Bliep voor aandacht omdat de countdown zo lang duurt, Geeft error in VM omdat deze geen buzzer hebben.
+[System.Console]::Beep(1109,200);
+
 #Reboot
 shutdown -r -t 5
