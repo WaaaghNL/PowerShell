@@ -1,4 +1,15 @@
-#Requires -RunAsAdministrator
+# 1. Check if running as Administrator
+function Test-IsAdmin {
+    $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = New-Object Security.Principal.WindowsPrincipal($currentUser)
+    return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+if (-not (Test-IsAdmin)) {
+    Write-Host "Restarting script with administrator privileges..."
+    Start-Process powershell "-ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+    exit
+}
 
 ## Export install.esd to install.wim and back again
 ## https://woshub.com/integrate-drivers-to-windows-install-media/
