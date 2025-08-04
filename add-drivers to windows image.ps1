@@ -1,6 +1,5 @@
 #Requires -RunAsAdministrator
 
-
 ## Export install.esd to install.wim and back again
 ## https://woshub.com/integrate-drivers-to-windows-install-media/
 ## https://www.zdnet.com/article/windows-10-installer-files-too-big-for-usb-flash-drive-heres-the-fix/
@@ -43,7 +42,7 @@ Write-Host "Yup this takes some time............." -ForegroundColor Yellow
 Add-WindowsDriver -Path $mount -Driver $drivers -Recurse
 
 Write-Host "Unmounting $bootfile with Index:1" -ForegroundColor Yellow
-Dismount-WindowsImage -Path $mount –Save
+Dismount-WindowsImage -Path $mount ï¿½Save
 
 Write-Host "Mounting $bootfile on Index:2" -ForegroundColor Yellow
 Mount-WindowsImage -Path $mount -ImagePath $bootfile -Index 2
@@ -53,7 +52,7 @@ Write-Host "Yup this takes some time............." -ForegroundColor Yellow
 Add-WindowsDriver -Path $mount -Driver $drivers -Recurse
 
 Write-Host "Unmounting $bootfile with Index:2" -ForegroundColor Yellow
-Dismount-WindowsImage -Path $mount –Save
+Dismount-WindowsImage -Path $mount ï¿½Save
 
 
 
@@ -67,7 +66,7 @@ Write-Host "Yup this takes some time............." -ForegroundColor Yellow
 Add-WindowsDriver -Path $mount -Driver $drivers -Recurse
 
 Write-Host "Unmounting $installfile with Index:1" -ForegroundColor Yellow
-Dismount-WindowsImage -Path $mount –Save
+Dismount-WindowsImage -Path $mount ï¿½Save
 
 Write-Host "Cutting $installfile in pieces so it fits on a FAT32 USB" -ForegroundColor Yellow
 Dism /Split-Image /ImageFile:$installfile /SWMFile:install.swm /FileSize:3800

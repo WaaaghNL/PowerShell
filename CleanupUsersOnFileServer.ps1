@@ -1,8 +1,8 @@
-# Definieer de drie mappen die je wilt controleren
+# Array of folders that you want to clean up
 $directories = @("\\fileserver01\c$\Profiles", "c:\UserProfiles")
 
-# Naar welke submap verplaatsen we de oude profielen?
-$RemovedFolderName = "@Directories van verwijderde gebruikers"
+# what subfolder
+$RemovedFolderName = "@Directories of removed users"
 
 # Zoek alle sAMAccountName hebbende objecten in AD
 $searcher = New-Object System.DirectoryServices.DirectorySearcher
