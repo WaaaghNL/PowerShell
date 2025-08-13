@@ -929,6 +929,14 @@ function Show-Menu {
     Write-Host "A - Alle driver injecties (boot + install)" -ForegroundColor Yellow
     Write-Host "Q - Afsluiten" -ForegroundColor Red
     Write-Host ""
+	Write-Host "======================================" -ForegroundColor Cyan
+    Write-Host "                Read ME               " -ForegroundColor Cyan
+    Write-Host "======================================" -ForegroundColor Cyan
+	Write-Host ""
+	Write-Host "Plaats de drivers die nodig zijn in het"
+	Write-Host " installatie image(boot) ook in de installatie"
+	Write-Host " drivers! Dit om BSOD te voorkomen."
+	Write-Host ""
 }
 
 function Handle-MenuSelection {
