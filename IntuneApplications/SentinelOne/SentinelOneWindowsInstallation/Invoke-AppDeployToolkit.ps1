@@ -100,12 +100,12 @@ $adtSession = @{
     AppVersion = '-'
     AppArch = '64 Bit'
     AppLang = 'EN'
-    AppRevision = '01'
+    AppRevision = '02'
     AppSuccessExitCodes = @(0)
     AppRebootExitCodes = @(1641, 3010)
-    AppScriptVersion = '1.0.0'
-    AppScriptDate = '2025-07-08'
-    AppScriptAuthor = 'Your Team'
+    AppScriptVersion = '1.0.1'
+    AppScriptDate = '2025-08-13'
+    AppScriptAuthor = 'Team Managed Workplace'
 
     # Install Titles (Only set here to override defaults set by the toolkit).
     InstallName = 'Install SentinelOne Agent'
@@ -113,16 +113,14 @@ $adtSession = @{
 
     # Script variables.
     DeployAppScriptFriendlyName = $MyInvocation.MyCommand.Name
-    DeployAppScriptVersion = '4.0.6'
+    DeployAppScriptVersion = '4.1.0'
     DeployAppScriptParameters = $PSBoundParameters
 }
 
 $scriptSession = @{
     # Script variables.
     S1ApiToken = ''
-    S1URL = 'https://'
-    NetworkCheckEnabled = $true
-    NetworkCheckPing = '9.9.9.9'
+    S1URL = ''
 }
 
 function Install-ADTDeployment
@@ -158,9 +156,13 @@ function Install-ADTDeployment
                 "Content-Type" = "application/json"
             }
         }
+		
+		Write-ADTLogEntry -Message "Getting 401 errors? API key presumably expired" -Severity 2
 
         #Gathering all the agents and select te latest version
         $ListAllAgents = (Invoke-RestMethod -Uri "https://$($s1config.url)/web/api/v2.1/update/agent/packages?limit=1000" -Method 'GET' -Headers $s1config.headers).data
+		
+		
         $LatestAgent = $ListAllAgents | Where-Object {$_.osType -eq 'windows' `
                                         -and $_.fileExtension -like "*exe*" `
                                         -and $_.minorVersion -eq 'ga' `
@@ -173,20 +175,6 @@ function Install-ADTDeployment
 
         #Download the latest agent
         Invoke-WebRequest -Uri $LatestAgent.link -Headers $s1config.headers -OutFile "$OutFilePath\$($LatestAgent.fileName)"
-    }
-
-    if ($scriptSession.NetworkCheckEnabled) {
-        Write-Output "Checking for network."
-
-        if (Test-Connection $scriptSession.NetworkCheckPing -Quiet) {
-            Write-ADTLogEntry -Message "Internet: succesful ping to $scriptSession.NetworkCheckPing!" -Severity 1
-        }
-        else{
-            Write-ADTLogEntry -Message "Internet: FAILED! Kan geen verbinding maken met $scriptSession.NetworkCheckPing" -Severity 3
-	        exit 69001
-        }
-    } else {
-        Write-ADTLogEntry -Message "SKIP: Network detection is disabled" -Severity 2
     }
 
     #Download the software	
