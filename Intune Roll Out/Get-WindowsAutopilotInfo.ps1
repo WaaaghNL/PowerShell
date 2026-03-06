@@ -1,3 +1,7 @@
+# Warning Line 141 > 165 are changed from the Original version!
+# https://www.powershellgallery.com/packages/Get-WindowsAutoPilotInfo/3.5/Content/Get-WindowsAutoPilotInfo.ps1
+
+
 <#PSScriptInfo
  
 .VERSION 3.5
@@ -138,31 +142,58 @@ Begin
     # If online, make sure we are able to authenticate
     if ($Online) {
 
-        # Get NuGet
-        $provider = Get-PackageProvider NuGet -ErrorAction Ignore
-        if (-not $provider) {
-            Write-Host "Installing provider NuGet"
-            Find-PackageProvider -Name NuGet -ForceBootstrap -IncludeDependencies
-        }
-        
-        # Get WindowsAutopilotIntune module (and dependencies)
-        $module = Import-Module WindowsAutopilotIntune -PassThru -ErrorAction Ignore
-        if (-not $module) {
-            Write-Host "Installing module WindowsAutopilotIntune"
-            Install-Module WindowsAutopilotIntune -Force
-        }
-        Import-Module WindowsAutopilotIntune -Scope Global
+#region:NuGetAndAutoPilot
+    # Zorg voor TLS 1.2 i.v.m. downloads vanaf PSGallery/NuGet
+    try {
+        [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+    } catch {
+        # Ignoreren als niet nodig
+    }
 
-        # Get Azure AD if needed
-        if ($AddToGroup)
-        {
-            $module = Import-Module AzureAD -PassThru -ErrorAction Ignore
-            if (-not $module)
-            {
-                Write-Host "Installing module AzureAD"
-                Install-Module AzureAD -Force
-            }
+    Write-Host "NuGet provider installeren"
+    try {
+        # Methode A: Install-PackageProvider met Force
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope AllUsers -ErrorAction Stop
+    } catch {
+        Write-Warning "Install-PackageProvider faalde, probeer ForceBootstrap"
+        # Methode B: ForceBootstrap (ook stil) – handig op oudere systemen
+        Find-PackageProvider -Name NuGet -ForceBootstrap -IncludeDependencies -Force -ErrorAction Stop | Out-Null
+    }
+
+    Write-Host "PowerShellGet ontbreekt of is verouderd. Installeren/updaten"
+    try {
+        Install-Module -Name PowerShellGet -Force -AllowClobber -Scope AllUsers -ErrorAction Stop
+    } catch {
+        Write-Warning "Install-Module PowerShellGet faalde. Probeer eerst de NuGet steps te valideren en netwerk/proxy te checken."
+    }
+
+    $repo = Get-PSRepository -Name 'PSGallery' -ErrorAction SilentlyContinue
+    if ($repo) {
+        if ($repo.InstallationPolicy -ne 'Trusted') {
+            Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
         }
+    } else {
+        # Als PSGallery ontbreekt (soms bij locked images), opnieuw registreren
+        Register-PSRepository -Default
+        Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+    }
+
+    Write-Host "Install en load WindowsAutopilotIntune module"
+    Install-Module -Name WindowsAutopilotIntune -Scope AllUsers -Force -AllowClobber -Confirm:$false -ErrorAction Stop
+    Import-Module WindowsAutopilotIntune -Scope Global
+	
+	# Get Azure AD if needed
+    if ($AddToGroup)
+    {
+        $module = Import-Module AzureAD -PassThru -ErrorAction Ignore
+        if (-not $module)
+        {
+            Write-Host "Installing module AzureAD"
+            Install-Module AzureAD -Force -Confirm
+        }
+    }
+
+#endregion:NuGetAndAutoPilot
 
         # Connect
         if ($AppId -ne "")
