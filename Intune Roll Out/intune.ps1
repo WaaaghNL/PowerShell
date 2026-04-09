@@ -1,13 +1,43 @@
-#Variables
-$TenantNAME = "TENANTNAME"
-$TenantID = "TenantID"
-$AppID = "APPID"
-$AppSecret = "APPSECRET"
+#Variables - Tenant
+# The Tenant information requierd below is availeble using the following manual https://www.osdeploy.com/guides/autopilot-app-registration
+$TenantNAME = ""
+$TenantID = ""
+$AppID = ""
+$AppSecret = ""
 
-$sleepBeforeReboot = 10 #tijd in minuten voor de reboot
+#Variables - Script
+$sleepBeforeReboot = 2 #Time in minutes, Intune heeft wat tijd nodig zodat de computer geregistreerd kan worden. Meer dan 5 minuten zou voldoende moeten zijn.
 
+$MinBuild = 26200 #Windows build
+$MinEdition = "Professional"
 
-# Bovenstaande informatie kun je vinden door een applicatie aan te maken met de stappen van https://www.osdeploy.com/guides/autopilot-app-registration
+####################################
+### Do NOT edit below this line! ###
+####################################
+
+# Lees info uit het register
+$regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+$osInfo = Get-ItemProperty -Path $regPath
+
+$currentBuild = [int]$osInfo.CurrentBuildNumber
+$currentEdition = $osInfo.EditionID
+
+Write-Host "Huidige editie : $currentEdition"
+Write-Host "Huidige build  : $currentBuild"
+
+# Controleer edition
+if ($currentEdition -ne $MinEdition) {
+    Write-Host "We dont have detected a unsupported Windows edition. We need Windows 11 Pro before we can continue!" -ForegroundColor Red
+    exit 1
+}
+
+# Controleer build (minimaal Windows 11 25H2)
+if ($currentBuild -lt $MinBuild) {
+    Write-Host "The Windows build is below $MinBuilduild. We need Windows build $MinBuild or better before we can continue!" -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "Minimal windows build is detected: Lets go!" -ForegroundColor Green
 
 ####################################
 ### Do NOT edit below this line! ###
@@ -76,13 +106,10 @@ for ($i = 1; $i -le $tijdInSeconden; $i++) {
     # Update progress bar
     $prcentageCompleet = ($i / $tijdInSeconden) * 100
     $tijdOver = $tijdInSeconden-$i
-    Write-Progress -Activity "Wachten op reboot" -Status "Nog $tijdOver seconden van $sleepBeforeReboot minuten" -PercentComplete $prcentageCompleet
+    Write-Progress -Activity "Computer herstarten" -Status "Nog $tijdOver seconden van $sleepBeforeReboot minuten" -PercentComplete $prcentageCompleet
 
     Start-Sleep -s 1
 }
 
-# Bliep voor aandacht omdat de countdown zo lang duurt, Geeft error in VM omdat deze geen buzzer hebben.
-[System.Console]::Beep(1109,200);
-
 #Reboot
-shutdown -r -t 5
+shutdown -r -t 1
