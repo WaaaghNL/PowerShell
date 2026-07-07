@@ -3,7 +3,7 @@
 $TenantNAME = ""
 $TenantID = ""
 $AppID = ""
-$AppSecret = ""
+$AppSecret = "" ## The Secret value not the Secret ID
 
 #Variables - Script
 $sleepBeforeReboot = 2 #Time in minutes, Intune heeft wat tijd nodig zodat de computer geregistreerd kan worden. Meer dan 5 minuten zou voldoende moeten zijn.
@@ -78,6 +78,8 @@ else{
 	Write-Host "Internet: FAILED! Kan geen verbinding maken met 8.8.8.8" -ForegroundColor Red
 	exit
 }
+## Zorgt er voor dat het script overal uitgevoerd kan worden ongeacht de drive
+$DriveAndPath = Join-Path $PSScriptRoot 'Get-WindowsAutopilotInfo.ps1'
 
 if ($TenantID -ne $null -and $TenantID -ne "" -and
     $AppID -ne $null -and $AppID -ne "" -and
@@ -85,14 +87,15 @@ if ($TenantID -ne $null -and $TenantID -ne "" -and
 {
     # All three variables are not null or empty
     Write-Host "Verbinden met Intune doormiddel van een app-based registratie." -ForegroundColor Green
-    powershell D:\Get-WindowsAutopilotInfo.ps1 -Online -TenantId $TenantID -AppID $AppID -AppSecret $AppSecret
+	
+    powershell $DriveAndPath -Online -TenantId $TenantID -AppID $AppID -AppSecret $AppSecret
 }
 else
 {
     # At least one variable is null or empty
     Write-Host "Niet alle configuratie items zijn ingesteld. Verbinden met Intune via de handmatige manier." -ForegroundColor Yellow
     Write-Host "Tip voer de App-based registratie gegevens toe aan de config." -ForegroundColor Yellow
-    powershell D:\Get-WindowsAutopilotInfo.ps1 -Online
+    powershell $DriveAndPath -Online
 }
 
 Write-Host "`r`n"
