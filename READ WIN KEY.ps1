@@ -5,7 +5,7 @@
 # Copyright 2023 Ronald van Heugten (WaaaghNL)
 
 # Config
-$serialNumber = "1234567890"  # Replace this with the desired serial number
+$serialNumber = "1234567890"  # Replace this with the desired usb Key serial number
 $path = "\Windows Keys" # Replace this with the desired storage path
 
 Write-Host "Export Windows Key Util" -ForegroundColor Green
