@@ -1,4 +1,4 @@
-﻿## With this script you can isntall and remove printers that are on your printserver, Set your AD domain and printserver in the Variables.
+﻿## With this script you can install and remove printers that are on your printserver, Set your AD domain and printserver in the Variables.
 ##
 ## How to use: Place this script in the root of new app and package the application as a intunewin file.
 ## 

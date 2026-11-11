@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts]
+"Libre Barcode 128 Regular (TrueType)"="LibreBarcode128-Regular.ttf"
+"Libre Barcode 128 Text Regular (TrueType)"="LibreBarcode128Text-Regular.ttf"
+"Libre Barcode 39 Regular (TrueType)"="LibreBarcode39-Regular.ttf"
+"Libre Barcode 39 Extended Regular (TrueType)"="LibreBarcode39Extended-Regular.ttf"
+"Libre Barcode 39 Text Regular (TrueType)"="LibreBarcode39Text-Regular.ttf"
+"Libre Barcode 39 Extended Text Regular (TrueType)"="LibreBarcode39ExtendedText-Regular.ttf"
+"Libre Barcode EAN13 Text Regular (TrueType)"="Roboto-LibreBarcodeEAN13Text-Regular.ttf"
