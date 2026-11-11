@@ -6,7 +6,7 @@ Random Powershell Scripts, if you find something you like please take it with yo
 ## Intune Roll Out
 
 ## IntuneApplications
-Install scripts for Intune
+Install scripts for Intune. Put them in a Package and upload them to intune
 
 ## Snippets
 
