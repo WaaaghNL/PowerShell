@@ -2,8 +2,8 @@
 ##
 ## How to use: Place this script in the root of new app and package the application as a intunewin file.
 ## 
-## Install command:   powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file BarcodeFonts.ps1 -Mode Install
-## Uninstall command: powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file BarcodeFonts.ps1 -Mode Uninstall
+## Install command:   powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file Barcode.ps1 -Mode Install
+## Uninstall command: powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file Barcode.ps1 -Mode Uninstall
 ##
 
 ## Error codes
@@ -12,18 +12,12 @@
 ## 3010 Soft reboot
 ## 1641 Hard reboot
 ## 1618 Retry
-##
-## 9010 XXXX
-## 9011 XXXX
 
 
 Param(
 	[Parameter(Mandatory=$true)]
 	[ValidateSet("Install", "Uninstall")]
-	[String]$Mode,
-
-	[Parameter(Mandatory=$true)]
-	[String]$PrinterName
+	[String]$Mode
 )
 
 ## What are we going to do? Install or Removing fonts
