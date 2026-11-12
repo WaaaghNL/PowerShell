@@ -1,6 +1,6 @@
 # Barcodes
 ## Install
-`powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file BarcodeFonts.ps1 -Mode Install`
+`powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file Barcode.ps1 -Mode Install`
 
 Install behavior: System
 Device restart behavior: No specific action
@@ -13,4 +13,4 @@ Rules format: Use a custom detection script
 Script file: `Detection.ps1`
 
 ## Uninstall
-`powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file BarcodeFonts.ps1 -Mode Uninstall`
+`powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file Barcode.ps1 -Mode Uninstall`
